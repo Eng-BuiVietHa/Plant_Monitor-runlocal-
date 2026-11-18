@@ -1,0 +1,436 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100dvh;
+  background: radial-gradient(circle at 80% 35%, #dcfce7 0%, transparent 50%),
+              linear-gradient(180deg, #effbf6 0%, #eaf9f0 55%, #f4faf4 100%);
+  color: #0f172a;
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 430px;
+  padding: 18px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Header --- */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.datetime-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.datetime-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.icon-sm {
+  width: 22px;
+  height: 22px;
+  color: #334155;
+  flex-shrink: 0;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.status-badge.connected {
+  background-color: #ccf2d8;
+  color: #15803d;
+}
+
+.status-badge.connected .status-dot {
+  background-color: #16a34a;
+}
+
+.status-badge.disconnected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-badge.disconnected .status-dot {
+  background-color: #dc2626;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* --- Mascot --- */
+.mascot-section {
+  margin: 6px 0 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.tree-mascot {
+  width: 148px;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.06));
+}
+
+/* --- Thẻ cảm biến --- */
+.sensor-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.sensor-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.sensor-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.sensor-text {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.temp-text {
+  color: #15803d;
+}
+
+.humi-text {
+  color: #0ea5e9;
+}
+
+/* --- Nhóm nút điều khiển --- */
+.control-list {
+  width: 100%;
+  max-width: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ctrl-btn {
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: inherit;
+  font-size: 18.5px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.ctrl-btn:active {
+  transform: scale(0.97);
+}
+
+.ctrl-btn.active {
+  outline: 3px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.btn-icon {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+.icon-white {
+  color: #ffffff;
+}
+
+.btn-auto {
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.28);
+}
+
+.btn-cool {
+  background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%);
+  box-shadow: 0 10px 20px rgba(6, 182, 212, 0.28);
+}
+
+.btn-timer {
+  background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 100%);
+  box-shadow: 0 10px 20px rgba(34, 211, 238, 0.28);
+}
+
+.btn-off {
+  background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.28);
+}
+
+/* --- Modal Hẹn Giờ --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 365px;
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 24px 22px 26px;
+  position: relative;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e7eb;
+  color: #6b7280;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.alarm-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.modal-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.time-label {
+  font-size: 16.5px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.time-pickers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-colon {
+  font-size: 22px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.spinner-box {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.spinner-box.active {
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+}
+
+.spin-btn {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 10px;
+  padding: 3px 12px;
+  cursor: pointer;
+}
+
+.spin-btn:active {
+  color: #0284c7;
+}
+
+.spin-value {
+  background: #e0f2fe;
+  border: 2px solid #38bdf8;
+  border-radius: 10px;
+  padding: 4px 11px;
+  font-size: 21px;
+  font-weight: 600;
+  color: #0f172a;
+  min-width: 54px;
+  text-align: center;
+  user-select: none;
+}
+
+/* --- Công tắc gạt --- */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0 24px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #cbd5e1;
+  border-radius: 999px;
+  transition: 0.25s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: 0.25s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch input:checked + .slider {
+  background-color: #16a34a;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(24px);
+  background-color: #22d3ee;
+}
+
+/* --- Nút Hủy / Lưu --- */
+.modal-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 46px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 16.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.modal-btn:active {
+  transform: scale(0.97);
+}
+
+.btn-cancel {
+  background: #ffffff;
+  border: 1.5px solid #94a3b8;
+  color: #64748b;
+}
+
+.btn-save {
+  border: none;
+  background: linear-gradient(90deg, #0ea5e9 0%, #22c55e 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(14, 165, 233, 0.3);
+}
