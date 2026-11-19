@@ -13,8 +13,8 @@
 const int PIN_DHT11 = 4;   // Chân D4 nối chân DATA của DHT11
 const int PIN_RELAY = 18;  // Chân D18 (GPIO 18) nối chân IN của Relay
 
-#define RELAY_ON  LOW
-#define RELAY_OFF HIGH
+#define RELAY_ON  HIGH
+#define RELAY_OFF LOW
 
 const char* AP_SSID = "TuoiCay_ESP32";
 const char* AP_PASS = "12345678";
